@@ -1,24 +1,16 @@
 import React from 'react';
-const  clearStyle = { background: '#ac3939' },
-  operatorStyle = { background: '#666666' },
-  equalsStyle = {
-    background: '#004466',
-    position: 'absolute',
-    height: 130,
-    bottom: 5
-  };
 class Buttons extends React.Component {
+
     render() {
         return (
         <>
         <div className="flex-row">
-            <div className="calc-logo">mikeyNichols.dev</div>
             <button 
             className='calc-on'
             id='clear'
             onClick={this.props.init}
-            value='AC'
-            >ON</button>
+            >CLEAR</button>
+            <div className="calc-logo">mikeyNichols.dev</div>
         </div>
 
         <div className="flex-row">
@@ -29,7 +21,7 @@ class Buttons extends React.Component {
             className='calc-btn'
             id='multiply'
             onClick={this.props.operators}
-            value="X"
+            value="x"
             >X</button>
         </div>
         <div className="flex-row">
@@ -40,7 +32,7 @@ class Buttons extends React.Component {
             className='calc-btn'
             id='subtract'
             onClick={this.props.operators}
-            value='‑'
+            value='-'
             >-</button>
         </div>
         <div className="flex-row">
@@ -76,7 +68,7 @@ class Buttons extends React.Component {
         id='equals'
         onClick={this.props.eval}
         value='='
-        >ENTER</button>
+        >=</button>
         </div>
         </>
         )

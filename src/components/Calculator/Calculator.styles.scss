@@ -18,9 +18,10 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
+    user-select: none;
 }
 
-@import 'https://fonts.googleapis.com/css?family=Share+Tech+Mono';
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
 @font-face {
     font-family: "Digital";
     src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot");
@@ -45,8 +46,9 @@ body {
     border-bottom-left-radius: 35px;
     background: linear-gradient(22.5deg,hsl(209, 100%, 95%),hsl(0, 0%, 79%));
 }
+
 .calc-result-frame {
-    background: #fefefe;
+    background: #d6ffc6;
     border: solid 5px #41403E;
     width: 100%;
     height: 150px;
@@ -66,19 +68,23 @@ body {
     overflow: hidden;
     font-size: 3rem;
 }
+.formulaScreen {
+    font-family: "Digital";
+}
 .calc-on {
     border-radius: 50%;
     border: none;
-    background: #bb0f29;
+    background: #94b2fa;
     color: #fefefe;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+    outline:none;
 }
 .calc-logo {
     background: #41403e;
     color: #e8eff0;
     border: solid px #41403E;
-    border-radius: 40px 5px;
+    border-radius: 5px 40px;
     width: 250px;
     height: 50px;
     line-height: 50px;
@@ -102,10 +108,9 @@ body {
     box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
 }
 .calc-enter {
-    background: #bb0f29;
-    color: #fefefe;
-    border-radius: 20px;
-    border: none;
+    background: #94b2fa;
+    color: #41403E;
+    // border: solid 7px #41403E;
 }
 
 /*****************************

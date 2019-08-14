@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Buttons from '../Buttons/Buttons.component';
-// import Formula from '../Formula/Formula.component';
+import Formula from '../Formula/Formula.component';
 import Output from '../Output/Output.component';
 
 import './Calculator.styles.scss';
@@ -17,8 +17,7 @@ class Calculator extends React.Component {
             curValue: '0',
             preValue: '0',
             formula: '',
-            curSign: 'pos',
-            lastClicked: ''
+            curSign: 'pos'
         };
         this.maxDigit = this.maxDigit.bind(this);
         this.evaluate = this.evaluate.bind(this);
@@ -30,53 +29,55 @@ class Calculator extends React.Component {
     maxDigit() {
         this.setState({
           curValue: 'Max Digit Met',
-          preValue: this.state.curValue
+          preValue: this.state.curValue,
+          formula: ''
         });
         setTimeout(() => this.setState({ curValue: this.state.preValue }), 1000);
       }
 
     evaluate() {
-        if (!this.state.curValue.includes(`limit`)) {
+         if (!this.state.curValue.includes(`Digit`) && !this.state.evaluated && !endsWithNegativeSign.test(this.state.formula)) {
+           
             let exp = this.state.formula;
             while (endsWithOperator.test(exp)) {
                 exp = exp.slice(0, -1);
             }
-            exp = exp.replace(/x/g, `*`).replace(/-/g, `-`);
-            let ans = Math.round(1000000000000 * eval(exp)) / 1000000000000;
+            exp = exp.replace(/x/g, `*`).replace(/-/g, '-');
+            let ans = eval(exp);
+            if (ans){
             this.setState({
                 curValue: ans.toString(),
                 formula: exp.replace(/\*/g, '⋅').replace(/-/g, '‑') + '=' + ans,
                 preValue: ans,
                 evaluated: true
-            })
+            })};
         }
     }
     getOperator(e) {
-        if (!this.state.curValue.includes('Limit')) {
-          const value = e.target.value;
-          const { formula, prevVal, evaluated } = this.state;
-          this.setState({ curValue: value, evaluated: false });
-          if (evaluated) {
-            this.setState({ formula: prevVal + value });
-          } else if (!endsWithOperator.test(formula)) {
-            this.setState({
-              preValue: formula,
-              formula: formula + value
-            });
-          } else if (!endsWithNegativeSign.test(formula)) {
-            this.setState({
-              formula: (endsWithNegativeSign.test(formula + value)
-                ? formula : prevVal) + value
-            });
-          } else if (value !== '‑') {
-            this.setState({
-              formula: prevVal + value
-            });
-          }
+      if (!this.state.curValue.includes('Digit')) {
+        const value = e.target.value;
+        const { formula, preValue, evaluated } = this.state;
+        this.setState({ curValue: value, evaluated: false });
+        if (evaluated) {
+          this.setState({ formula: preValue + value });
+        } else if (!endsWithOperator.test(formula)) {
+          this.setState({
+            prevVal: formula,
+            formula: formula + value
+          });
+        } else if (!endsWithNegativeSign.test(formula)) {
+          this.setState({
+            formula: `${this.state.prevValue} ${this.state.prevValue} ${value}`
+          });
+        } else if (value !== '‑') {
+          this.setState({
+            formula: preValue + value
+          });
         }
       }
+    }
       getNumbers(e) {
-        if (!this.state.curValue.includes('Limit')) {
+        if (!this.state.curValue.includes('Digit')) {
           const { curValue, formula, evaluated } = this.state;
           const value = e.target.value;
           this.setState({ evaluated: false });
@@ -139,7 +140,6 @@ class Calculator extends React.Component {
               preValue: '0',
               formula: '',
               curSign: 'pos',
-              lastClicked: '',
               evaluated: false
           })
       }
@@ -149,7 +149,7 @@ class Calculator extends React.Component {
         <div className="calculator">
             <div className="calc-frame">
                 <div className="calc-result-frame">
-                {/* <Formula formula={this.state.formula.replace(/x/g, '⋅')} /> */}
+                <Formula formula={this.state.formula.replace(/x/g, '⋅')} />
                 <Output curValue={this.state.curValue} />
                 </div>
                 <Buttons 
@@ -158,7 +158,6 @@ class Calculator extends React.Component {
                 init={this.init}
                 numbers={this.getNumbers}
                 operators={this.getOperator}/>
-        
             </div>
         </div>
         )
