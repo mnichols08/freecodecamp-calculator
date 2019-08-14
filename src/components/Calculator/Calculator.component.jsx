@@ -67,7 +67,8 @@ class Calculator extends React.Component {
           });
         } else if (!endsWithNegativeSign.test(formula)) {
           this.setState({
-            formula: `${this.state.prevValue} ${this.state.prevValue} ${value}`
+            formula: value + (endsWithNegativeSign.test(formula + value)
+              ? formula : preValue) + value
           });
         } else if (value !== '‑') {
           this.setState({
