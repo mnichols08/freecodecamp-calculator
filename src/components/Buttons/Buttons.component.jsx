@@ -1,5 +1,89 @@
 import React from 'react';
 class Buttons extends React.Component {
+    constructor(props){
+        super(props);
+        this.listenToKeys = this.listenToKeys.bind(this);
+      }
+      listenToKeys(e){
+        switch(e.keyCode) {
+            case 46:
+                this.props.init();
+            break;
+
+            case 13:
+                this.props.eval();
+            break;
+
+            case 110:
+                this.props.decimal();
+            break;
+
+            case 111:
+                this.props.operators({target: {value: '/'}});
+            break;
+
+            case 106:
+                this.props.operators({target: {value: 'x'}});
+            break;
+
+            case 109:
+                this.props.operators({target: {value: '-'}});
+            break;
+
+            case 107:
+                this.props.operators({target: {value: '+'}});
+            break;
+
+            case 96:
+                this.props.numbers({target: {value: '0'}});
+            break;
+
+            case 97:
+                this.props.numbers({target: {value: '1'}});
+            break;
+
+            case 98:
+                this.props.numbers({target: {value: '2'}});
+            break;
+
+            case 99:
+                this.props.numbers({target: {value: '3'}});
+            break;
+
+            case 100:
+                this.props.numbers({target: {value: '4'}});
+            break;
+
+            case 101:
+                this.props.numbers({target: {value: '5'}});
+            break;
+
+            case 102:
+                this.props.numbers({target: {value: '6'}});
+            break;
+
+            case 103:
+                this.props.numbers({target: {value: '7'}});
+            break;
+
+            case 104:
+                this.props.numbers({target: {value: '8'}});
+            break;
+
+            case 105:
+                this.props.numbers({target: {value: '9'}});
+            break;
+           
+            default:
+        }
+
+      }
+      componentDidMount(){
+        document.addEventListener("keydown", this.listenToKeys, false);
+      }
+      componentWillUnmount(){
+        document.removeEventListener("keydown", this.listenToKeys, false);
+      }
 
     render() {
         return (
@@ -10,7 +94,7 @@ class Buttons extends React.Component {
             id='clear'
             onClick={this.props.init}
             >CLEAR</button>
-            <div className="calc-logo">mikeyNichols.dev</div>
+            <div className="calc-logo"><a href="https://mikeynichols.dev" target="_blank" rel="noopener noreferrer" >mikeyNichols.dev</a></div>
         </div>
 
         <div className="flex-row">
