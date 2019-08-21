@@ -11,7 +11,7 @@ class Buttons extends React.Component {
             break;
 
             case 13:
-                this.props.eval();
+                setTimeout(this.props.eval(), 1000);
             break;
 
             case 110:

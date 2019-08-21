@@ -36,27 +36,28 @@ class Calculator extends React.Component {
       }
 
     evaluate() {
-         if (!this.state.curValue.includes(`Digit`) && !this.state.evaluated) {
-           
+         if (!this.state.curValue.includes(`Digit`)) {
+
             let exp = this.state.formula;
             while (endsWithOperator.test(exp)) {
                 exp = exp.slice(0, -1);
             }
             exp = exp.replace(/x/g, `*`).replace(/-/g, '-');
+            if (exp.includes('=')) exp = exp.replace(/⋅/g, '*').replace(/‑/g, '-').slice(0,exp.indexOf('='));
             let ans = Math.round(1000000000000 * eval(exp)) / 1000000000000;
-            if (ans){
+
             this.setState({
                 curValue: ans.toString(),
                 formula: exp.replace(/\*/g, '⋅').replace(/-/g, '‑') + '=' + ans,
                 preValue: ans,
                 evaluated: true
-            })};
+            })
+          
         }
     }
     getOperator(e) {
       if (!this.state.curValue.includes('Digit')) {
         const value = e.target.value;
-        console.log(e.target.value);
         const { formula, preValue, evaluated } = this.state;
         this.setState({ curValue: value, evaluated: false });
         if (evaluated) {
